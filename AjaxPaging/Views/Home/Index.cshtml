@@ -1,0 +1,29 @@
+﻿@model AjaxPaging.Helper.PagedData<AjaxPaging.Models.BookModel>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+    $().ready(function () {
+        $(".page-number").click(function () {
+            var page = parseInt($(this).html());
+            $.ajax({
+                url: '@Url.Action("RMAList")',
+                data: {
+                    "searchingString":$("#txtSerach").val(),
+                     "pageNumber": page
+                },
+                success: function (data) {
+                    $("#list-result").html(data);
+                }
+            });
+        });
+    });
+</script>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<input type="text" id="txtSerach" />
+<div id="list-result">
+    @Html.Partial("_RMAListPartial")
+</div>
+
